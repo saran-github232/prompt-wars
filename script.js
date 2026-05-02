@@ -525,7 +525,7 @@ Language Setting: Respond in ISO code: ${currentLang}.
 Fact-checking (VERITAS): ${isVeritasActive ? 'ON. Correct any misinformation politely.' : 'OFF.'}
 Rule: NEVER endorse a candidate. Be highly formatting with markdown, bolding, and bullet points. Keep answers concise and educational.`;
 
-        const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent?key=${geminiApiKey}`;
+        const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${geminiApiKey}`;
         
         const payload = {
             system_instruction: { parts: [{ text: systemInstructionText }] },

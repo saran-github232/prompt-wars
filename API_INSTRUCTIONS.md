@@ -24,8 +24,8 @@ To use the live AI in this repository:
 
 ## Step 4: Selected Models Configuration
 Because this is a Google-organized hackathon, we are exclusively utilizing the highest-tier Gemini models to maximize capability and ensure seamless integration with the Antigravity architecture:
-*   **Chatbot & Core Reasoning**: `gemini-2.5-pro` (Industry-leading logic and reasoning capabilities)
-*   **Multilingual Support**: `gemini-2.5-pro` (Natively handles flawless multi-language support)
-*   **Ballot Decoder (OCR & Vision)**: `gemini-2.5-pro` (World-class image recognition and OCR)
+*   **Chatbot & Core Reasoning**: `gemini-2.0-flash` (Industry-leading logic, speed, and reasoning capabilities)
+*   **Multilingual Support**: `gemini-2.0-flash` (Natively handles flawless multi-language support)
+*   **Ballot Decoder (OCR & Vision)**: `gemini-2.0-flash` (World-class image recognition and OCR)
 
 *Note: If no API key is provided in the Settings Panel, the application will automatically fall back to "Simulation Mode," outputting predefined realistic responses based on the PRD's conversational flows, ensuring the prototype is always verifiable by judges.*

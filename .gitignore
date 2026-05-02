@@ -1,0 +1,16 @@
+# Environment Variables
+.env
+
+# Dependencies
+node_modules/
+
+# Python cache & extracted docs (from prep phase)
+__pycache__/
+read_docx.py
+prd1.txt
+prd2.txt
+*.pyc
+
+# OS generated files
+.DS_Store
+Thumbs.db

@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ELECTRA | Election Process Education Assistant</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="background-effects">
+        <div class="glow-orb orb-1"></div>
+        <div class="glow-orb orb-2"></div>
+        <div class="glow-orb orb-3"></div>
+    </div>
+
+    <div class="app-container">
+        <!-- Mobile Header -->
+        <div class="mobile-header">
+            <div class="logo-container-mobile">
+                <i class="fa-solid fa-bolt logo-icon"></i>
+                <h1 class="logo-text">ELECTRA</h1>
+            </div>
+            <button id="mobile-menu-toggle" class="icon-btn"><i class="fa-solid fa-bars"></i></button>
+        </div>
+
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="logo-container desktop-only">
+                <i class="fa-solid fa-bolt logo-icon"></i>
+                <h1 class="logo-text">ELECTRA</h1>
+                <span class="version-badge">v2.0 PRO</span>
+            </div>
+            
+            <nav class="nav-menu">
+                <p class="menu-label">CORE MODULES</p>
+                <button class="nav-item active" data-module="welcome">
+                    <i class="fa-solid fa-house"></i> Home
+                </button>
+                <button class="nav-item" data-module="registration">
+                    <i class="fa-solid fa-id-card"></i> Voter Registration
+                </button>
+                <button class="nav-item" data-module="timeline">
+                    <i class="fa-solid fa-calendar-days"></i> Election Timeline
+                </button>
+                <button class="nav-item" data-module="ballot">
+                    <i class="fa-solid fa-file-signature"></i> Ballot Decoder
+                </button>
+                <button class="nav-item" data-module="candidates">
+                    <i class="fa-solid fa-users-viewfinder"></i> Compare Candidates
+                </button>
+                <button class="nav-item" data-module="rights">
+                    <i class="fa-solid fa-scale-balanced"></i> Voting Rights
+                </button>
+
+                <p class="menu-label mt-4">POWER FEATURES</p>
+                <button class="nav-item" data-module="votesim">
+                    <i class="fa-solid fa-person-booth"></i> Practice Voting (Sim)
+                </button>
+                <button class="nav-item" data-module="debate">
+                    <i class="fa-solid fa-comments"></i> Debate Arena
+                </button>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <div class="score-card">
+                    <div class="score-header">
+                        <span>Civic Readiness</span>
+                        <i class="fa-solid fa-trophy" id="score-icon"></i>
+                    </div>
+                    <div class="score-bar">
+                        <div class="score-fill" id="score-fill" style="width: 15%;"></div>
+                    </div>
+                    <div class="score-text" id="score-text">Beginner Voter (150 pts)</div>
+                </div>
+                <button id="settings-btn" class="settings-btn">
+                    <i class="fa-solid fa-gear"></i> Settings / API
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Chat Area -->
+        <main class="chat-area">
+            <header class="chat-header">
+                <div class="header-info">
+                    <div class="status-indicator"></div>
+                    <div>
+                        <h2>ELECTRA Assistant</h2>
+                        <span class="ai-status" id="model-status">Google Gemini Connected</span>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <!-- Language Selector -->
+                    <div class="custom-select" title="Multilingual Support">
+                        <select id="lang-select">
+                            <option value="en">🇺🇸 English</option>
+                            <option value="es">🇪🇸 Español</option>
+                            <option value="zh">🇨🇳 中文</option>
+                            <option value="te">🇮🇳 తెలుగు</option>
+                        </select>
+                    </div>
+
+                    <!-- Voice TTS Toggle -->
+                    <button class="action-btn tooltip" data-tooltip="Enable Voice (TTS)" id="voice-tts-btn">
+                        <i class="fa-solid fa-volume-high"></i>
+                    </button>
+
+                    <!-- VERITAS Fact Check Toggle -->
+                    <div class="fact-check-toggle" title="VERITAS Fact-Check Engine">
+                        <label class="switch-small">
+                            <input type="checkbox" id="veritas-toggle" checked>
+                            <span class="slider-small round"></span>
+                        </label>
+                        <span class="fc-label"><i class="fa-solid fa-shield-halved"></i> VERITAS</span>
+                    </div>
+                    
+                    <button class="action-btn tooltip" data-tooltip="Upload Ballot" id="upload-btn">
+                        <i class="fa-solid fa-camera"></i>
+                    </button>
+                    <input type="file" id="ballot-upload" accept="image/*" class="hidden-input">
+
+                    <button class="action-btn tooltip" id="clear-btn" data-tooltip="Clear Chat">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Home Dashboard (Visible only on 'welcome' module) -->
+            <div id="home-dashboard" class="home-dashboard">
+                <div class="dashboard-header">
+                    <h1>Welcome to ELECTRA</h1>
+                    <p>Your AI-powered guide to the democratic process. Select a module below to begin.</p>
+                    
+                    <div class="realtime-widget">
+                        <div class="widget-icon"><i class="fa-regular fa-clock"></i></div>
+                        <div class="widget-content">
+                            <span class="widget-label">Next Major Election</span>
+                            <strong id="countdown-timer">Calculating...</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-grid">
+                    <div class="dash-card" data-trigger="registration">
+                        <div class="card-icon"><i class="fa-solid fa-id-card"></i></div>
+                        <h3>Voter Registration</h3>
+                        <p>Check your eligibility and get a personalized step-by-step guide to registering in your state.</p>
+                        <span class="card-link">Start Module <i class="fa-solid fa-arrow-right"></i></span>
+                    </div>
+                    <div class="dash-card" data-trigger="timeline">
+                        <div class="card-icon"><i class="fa-solid fa-calendar-days"></i></div>
+                        <h3>Election Timeline</h3>
+                        <p>View critical deadlines for primary and general elections so you never miss a date.</p>
+                        <span class="card-link">Start Module <i class="fa-solid fa-arrow-right"></i></span>
+                    </div>
+                    <div class="dash-card" data-trigger="ballot">
+                        <div class="card-icon"><i class="fa-solid fa-file-signature"></i></div>
+                        <h3>Ballot Decoder</h3>
+                        <p>Upload a photo of your sample ballot for a plain-language breakdown of propositions and races.</p>
+                        <span class="card-link">Start Module <i class="fa-solid fa-arrow-right"></i></span>
+                    </div>
+                    <div class="dash-card" data-trigger="candidates">
+                        <div class="card-icon"><i class="fa-solid fa-users-viewfinder"></i></div>
+                        <h3>Compare Candidates</h3>
+                        <p>Get strictly neutral, factual comparisons based on official platforms and voting records.</p>
+                        <span class="card-link">Start Module <i class="fa-solid fa-arrow-right"></i></span>
+                    </div>
+                    <div class="dash-card" data-trigger="rights">
+                        <div class="card-icon"><i class="fa-solid fa-scale-balanced"></i></div>
+                        <h3>Voting Rights</h3>
+                        <p>Learn your rights at the polling place, from provisional ballots to accessibility accommodations.</p>
+                        <span class="card-link">Start Module <i class="fa-solid fa-arrow-right"></i></span>
+                    </div>
+                    <div class="dash-card" data-trigger="votesim">
+                        <div class="card-icon"><i class="fa-solid fa-person-booth"></i></div>
+                        <h3>Practice Voting</h3>
+                        <p>Enter a simulated Election Day scenario to practice handling long lines and common issues.</p>
+                        <span class="card-link">Start Module <i class="fa-solid fa-arrow-right"></i></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chat Container (Hidden on 'welcome' module) -->
+            <div class="chat-container hidden" id="chat-container">
+                <!-- Chat messages will be injected here -->
+                <div class="message system-message">
+                    <div class="avatar"><i class="fa-solid fa-bolt"></i></div>
+                    <div class="message-content">
+                        <p>Initializing <strong>MAESTRO</strong> Multi-Agent Orchestration...</p>
+                        <p>Establishing connection to Google Gemini 1.5 Pro...</p>
+                        <p>Safety Guardrails: <span class="badge success">Active</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="typing-indicator hidden" id="typing-indicator">
+                <span>ELECTRA is thinking</span>
+                <div class="dots">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+            </div>
+
+            <!-- Preview Image Container -->
+            <div id="image-preview-container" class="hidden">
+                <div class="preview-box">
+                    <img id="image-preview" src="" alt="Ballot Preview">
+                    <button id="remove-image-btn" class="icon-btn remove-img"><i class="fa-solid fa-times"></i></button>
+                    <div class="preview-text">Analyzing Ballot with Gemini Vision...</div>
+                </div>
+            </div>
+
+            <div class="input-area hidden" id="input-area">
+                <div class="input-wrapper">
+                    <textarea id="chat-input" placeholder="Ask ELECTRA about elections, voting, or ballots..." rows="1"></textarea>
+                    <div class="input-buttons">
+                        <button id="send-btn" class="send-btn">
+                            <i class="fa-solid fa-paper-plane"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="disclaimer">
+                    ELECTRA provides factual, non-partisan civic education. It does not endorse candidates. Powered by Google Antigravity & Gemini.
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal hidden">
+        <div class="modal-content glass-panel">
+            <div class="modal-header">
+                <h2><i class="fa-solid fa-sliders"></i> Configuration</h2>
+                <button id="close-modal" class="icon-btn"><i class="fa-solid fa-xmark"></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="gemini-key">Google Gemini API Key</label>
+                    <input type="password" id="gemini-key" placeholder="AIzaSy...">
+                    <small>Required for live AI responses, Vision OCR, and Fact-Checking.</small>
+                </div>
+                <div class="form-group toggle-group">
+                    <label>Simulated Mode (Mock Responses)</label>
+                    <label class="switch">
+                        <input type="checkbox" id="sim-mode" checked>
+                        <span class="slider round"></span>
+                    </label>
+                </div>
+                <div class="callout">
+                    <i class="fa-solid fa-info-circle"></i> Keep Simulated Mode ON if you do not have API keys. The app will work fully with pre-programmed interactive mock responses!
+                </div>
+                <button id="save-settings" class="primary-btn">Save Configuration</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
